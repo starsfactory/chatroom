@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Room List</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        #container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #chatRooms {
+            list-style: none;
+            padding: 0;
+        }
+
+        .chatRoomItem {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #createRoomBtn, #joinRoomBtn {
+            padding: 10px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+
+        #createRoomBtn:hover, #joinRoomBtn:hover {
+            background-color: #45a049;
+        }
+        #joinOrCreateRoomContainer {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <h2>聊天室列表</h2>
+    <div id="joinOrCreateRoomContainer">
+        <label for="roomId">输入房间ID:</label>
+        <input type="text" id="roomId" name="roomId" placeholder="输入..." required>
+        <button id="joinRoomBtn" name = "join room" onclick="JoinChatRoom()">加入房间</button>
+        <button id="createRoomBtn" name="create room" onclick="CreateChatRoom()">创建房间</button>
+        <button id="createRoomBtn" name="create room" onclick="visualize()">可视化</button>
+    </div>
+    <ul id="chatRooms"></ul>
+
+
+
+    <script>
+        // Simulated user ID from session storage
+        const userid = sessionStorage.getItem('userid');
+
+        // Function to fetch and display chat rooms
+        function displayChatRooms() {
+            // Simulated API endpoint for fetching chat rooms
+            const apiEndpoint = `/getallroom?username=${userid}`;
+
+            // Fetch chat rooms from the server
+            fetch(apiEndpoint)
+                .then(response => response.json())
+                .then(data => {
+                    if(!data.empty) {
+                        const chatRoomsList = document.getElementById('chatRooms');
+                        chatRoomsList.innerHTML = '';
+                        var allroom = data.allroom
+
+                        // Display each chat room
+                        allroom.forEach(room => {
+                            var mainmark = ''
+                            if(room.mainuser == userid){
+                                mainmark = '群主';
+                            }else{
+                                mainmark = '群成员';
+                            }
+                            const chatRoomItem = document.createElement('li');
+                            chatRoomItem.className = 'chatRoomItem';
+                            chatRoomItem.innerHTML = `
+                            <div>
+                                <strong>${room.roomname}  ${mainmark}</strong>
+                                <p>${room.detail}</p>
+                            </div>
+{#                            <button onclick="EnterChatRoom(${room.id})"> 群聊分析</button>#}
+                            <button onclick="EnterChatRoom(${room.id})"> 进入</button>
+                        `;
+                            chatRoomsList.appendChild(chatRoomItem);
+                        });
+                    }
+                })
+                .catch(error => console.error('Error fetching chat rooms:', error));
+        }
+
+        // Function to join a chat room
+        function EnterChatRoom(roomid) {
+                sessionStorage.setItem("roomid", roomid);
+                window.location.href = "/room/";
+        }
+
+        function JoinChatRoom() {
+            // Simulated API endpoint for joining a chat room
+            const roomid = document.getElementById('roomId').value;
+            const userid = sessionStorage.getItem('userid');
+
+            // 判断是否输入了聊天室ID
+            if (roomid.trim() === '') {
+                alert('Please enter a valid room ID.');
+            }else{
+                url = `/joinroom?roomid=${roomid}&userid=${userid}`;
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data =>{
+                        if(data.success){
+                            if(!data.joinmark){
+                                sessionStorage.setItem("roomid", roomid);
+                                window.location.href = "/allroom/";
+                            }else{
+                                alert("you have joined the room");
+                            }
+                        }else{
+                            alert("no such room")
+                        }
+
+                        }
+                    );
+
+            }
+        }
+
+        function CreateChatRoom() {
+            // Simulated API endpoint for joining a chat room
+            const roomname = document.getElementById('roomId').value;
+            const userid = sessionStorage.getItem("userid");
+            const apiEndpoint = `/createroom?roomname=${roomname}&userid=${userid}`;
+            fetch(apiEndpoint)
+                .then(response => response.json())
+                .then(data => {
+                    if(data.success){
+                        window.location.href = "/allroom";
+                    }else{
+                        alert("fail to create room" + roomname);
+                    }
+                });
+        }
+
+        function visualize(){
+            const userid = sessionStorage.getItem('userid')
+            window.location.href = "/gohistory";
+        }
+
+
+        // Display chat rooms when the page loads
+        displayChatRooms();
+    </script>
+</div>
+
+</body>
+</html>

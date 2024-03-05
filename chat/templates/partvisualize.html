@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>历史记录</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            border: 1px solid #ccc;
+            margin: 5px;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .visualize-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .visualize-all-btn {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1 >历史记录</h1>
+    <button class="visualize-all-btn" onclick="redirectToChatRoom()">返回聊天室</button>
+    <button class="visualize-all-btn" onclick="visualizeAll()">可视化所有历史记录</button>
+
+    <ul id="history-list">
+        <!-- 历史记录将动态添加到这里 -->
+    </ul>
+
+
+
+    <script>
+        // 模拟后端传输的历史记录数据
+        const userid = sessionStorage.getItem('userid');
+        const url = '/getallhistory?userid=' + userid;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if(data.success) {
+                    data.history.forEach(item => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `
+                        <span>房间号: ${item.chatroomid}</span>
+                        <span>文件名: ${item.history}</span>
+                        <button class="visualize-btn" onclick="visualize(${item.chatroomid}, '${item.history}')">可视化</button>
+                    `;
+                        const historyList = document.getElementById('history-list');
+                        historyList.appendChild(li);
+                })}});
+
+        function redirectToChatRoom() {
+            // Modify the URL or perform other actions to redirect to the chat room page
+            window.location.href = "/allroom";
+        }
+
+        // 跳转到单个历史记录可视化页面
+        function visualize(room, filename) {
+            // 在这里执行跳转操作，例如 window.location.href = `/visualize/${room}/${filename}`
+            console.log(`跳转到可视化页面：房间号 ${room}, 文件名 ${filename}`);
+            sessionStorage.setItem('filename', filename);
+            sessionStorage.setItem('historyroomid', room);
+            window.location.href = "/govisualize"
+        }
+
+        // 跳转到所有历史记录可视化页面
+        function visualizeAll() {
+            // 在这里执行跳转操作，例如 window.location.href = '/visualize/all'
+            console.log('跳转到可视化所有历史记录页面');
+            window.location.href = "/govisualizeall"
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>信息可视化</title>
+  <link rel="stylesheet" href="../static/css/index.css" />
+</head>
+
+<body>
+	<header>
+		<a class="return" href="/gohistory">返回历史记录列表</a>
+	  	<div class="showTime">当前时间：2024年3月<span></span></div>
+		<h1>历史数据可视化分析</h1>
+	</header>
+  <section class="mainbox">
+    <div class="column">
+      <div class="panel bar">
+        <h2>情绪统计</h2>
+        <div class="chart"></div>
+        <div class="panel-footer"></div>
+      </div>
+      <div class="panel line">
+        <h2>对话过程情绪变化</h2>
+        <div class="chart"></div>
+        <div class="panel-footer"></div>
+      </div>
+      <div class="panel pie">
+        <h2>情绪倾向占比</h2>
+        <div class="chart"></div>
+        <div class="panel-footer"></div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="no">
+        <div class="no-hd">
+          <ul>
+            <li id="mainnumber">125811</li>
+            <li id="mainemotion">104563</li>
+          </ul>
+        </div>
+        <div class="no-bd">
+          <ul>
+            <li>对话总数</li>
+            <li>整体情感度</li>
+          </ul>
+        </div>
+      </div>
+      <div class="map">
+        <div class="chart"></div>
+        <div class="map1"></div>
+        <div class="map2"></div>
+        <div class="map3"></div>
+      </div>
+    </div>
+    <div class="column">
+      <div class="panel bar1">
+        <h2>对话人员参与度</h2>
+        <div class="chart"></div>
+        <div class="panel-footer"></div>
+      </div>
+      <div class="panel line1">
+        <h2>对话密集分布</h2>
+        <div class="chart"></div>
+        <div class="panel-footer"></div>
+      </div>
+      <div class="panel pie1">
+        <h2>语句长度占比</h2>
+        <div class="chart"></div>
+        <div class="panel-footer"></div>
+      </div>
+    </div>
+  </section>
+  <script>
+    (function (fn) {
+      fn();
+      setInterval(fn, 1000);
+    })(function () {
+     var dt = new Date();
+      document.querySelector(".showTime span").innerHTML =
+        dt.getDate() + "日-" +
+        dt.getHours() + "时" +
+        dt.getMinutes() + "分" +
+        dt.getSeconds() + "秒";
+    });
+  </script>
+
+  <script src="../static/js/flexible.js"></script>
+  <script src="https://www.jq22.com/jquery/echarts-4.2.1.min.js"></script>
+  <script src="../static/js/news.js"></script>
+
+</body>
+
+</html>

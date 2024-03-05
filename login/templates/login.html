@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>后台管理系统</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/login.css">
+</head>
+
+<body>
+	<div class="logo_box"><img class="logo_img" src="/static/images/head.png"></div>
+	<div class="login_box">
+		<h1 class="title">欢迎登录</h1>
+		<input class="input_box" id="username" type="text" placeholder="用户名">
+		<input class="input_box" id="userpassword" type="password" placeholder="密码">
+		<input class="button_box" id="button" type="button" value="登录">
+	</div>
+    <script>
+        var domBtm = document.getElementById("button");
+        // 发送内容
+        var username = document.getElementById("username");
+        var userpassword = document.getElementById("userpassword");
+        console.log(username);
+        console.log(userpassword);
+
+        var data = new URLSearchParams();
+        {#{#}
+        {#    'username': username.value,#}
+        {#    'userpassword': userpassword.value,#}
+        data.append('username', username.value);
+        data.append('userpassword', userpassword.value);
+
+        console.log(data);
+        domBtm.addEventListener("click",function(){
+            fetch('/login?' + 'username=' + username.value + '&userpassword=' + userpassword.value,
+                {
+                    method: 'GET',
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded',},
+                    {#body: data,#}
+                }
+            ).then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json(); // 返回一个包含解析后 JSON 数据的 Promise
+            }).then(data => {
+            // 处理返回的数据
+            console.log(data);
+            console.log(data.success);
+            // 根据后端返回的数据或其他条件判断是否需要跳转
+            if (data.success) {
+                // 使用 window.location.href 进行页面跳转
+                sessionStorage.setItem('username', username.value);
+                sessionStorage.setItem('userid', data.userid)
+                window.location.href = 'allroom';
+
+            } else {
+                console.error('Login failed');
+            }
+        })
+            ;
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        {#background-color: #06164A;#}
+        padding: 0;
+        margin: 0;
+    }
+    .big{
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            {#background-color: #435589;#}
+    }
+    .chat_commento{
+        width: 450px;
+        height: 650px;
+        margin: auto;
+        border: 2px solid #f4f5f7;
+    }
+    .chat_commento_left{
+        width: 400px;
+        height: 400px;
+        float: left;
+        border-radius: 10px;
+        border: 2px solid #f4f5f7;
+    }
+    .chat_commento_right{
+        width: 400px;
+        height: 400px;
+        float: right;
+        border-radius: 10px;
+        border: 2px solid #f4f5f7;
+    }
+    .clearfix::after{
+        content: "";
+        display: block;
+        clear: both;
+        width: 0;
+        height: 0;
+        line-height: 0;
+        visibility: hidden;
+    }
+    /* top */
+    .chat_top{
+        width: 100%;
+        height: 50px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        padding-left: 20px;
+        font-size: 20px;
+        line-height: 50px;
+        box-sizing: border-box;
+        font-weight: 550;
+        border-width: 0px;
+    }
+    /* middle */
+    /* 左边 */
+    .chat_middle{
+        width: 450px;
+        height: 455px;
+        position: relative;
+        box-sizing: border-box;
+        overflow: auto;
+        border-width: 0px;
+    }
+    .chat_not_middle{
+        width: 450px;
+        height: 300px;
+        position: relative;
+        box-sizing: border-box;
+        overflow: auto;
+        border-width: 0px;
+    }
+    .chat_left{
+        width: 100%;
+        height: 120px;
+        margin-top: 20px;
+    }
+    .chat_left_item_1{
+        width: 50px;
+        height: 50px;
+        background-color: #4459AB;
+        float: left;
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+        text-align: center;
+        line-height: 50px;
+        color: white;
+        border-radius: 25px;
+    }
+    .chat_left_item_2{
+        width: 55%;
+        height: 100px;
+        float: left;
+        margin-top: 10px;
+    }
+    .chat_left_item_2 .chat_left_chat{
+        float: left;
+    }
+    .chat_left_item_2 .chat_left_content{
+        padding: 15px;
+        margin-top: 10px;
+        background-color: #f4f5f7;
+        display: inline-block;
+        border-radius: 10px;
+        border-top-left-radius: 0px;
+    }
+    /* 右边 */
+    .chat_right{
+        width: 100%;
+        height: 120px;
+        margin-top: 20px;
+    }
+    .chat_right_item_1{
+        width: 50px;
+        height: 50px;
+        background-color: #4459AB;
+        float: right;
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+        text-align: center;
+        line-height: 50px;
+        color: white;
+        border-radius: 25px;
+    }
+    .chat_right_item_2{
+        width: 55%;
+        height: 100px;
+        float: right;
+        margin-top: 10px;
+    }
+    .chat_right_time{
+        width: 100%;
+        text-align: right;
+    }
+    .chat_right_content{
+        float: right;
+        padding: 15px;
+        border-radius: 10px;
+        margin-top: 10px;
+        border-top-right-radius: 0px;
+        background-color: #4F7cff;
+        color: white;
+    }
+    /* foot */
+    .chat_foot{
+        width: 450px;
+        height: 130px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        position: relative;
+    }
+    .chat_context{
+        width: 100%;
+        height: 100%;
+        font-size: 17px;
+        box-sizing: border-box;
+        outline: none;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        border-width: 0px;
+        padding: 16px;
+    }
+    .chat_commit{
+        width: 80px;
+        height: 30px;
+        color: white;
+        background-color: #4F7cff;
+        line-height: 30px;
+        text-align: center;
+        border-radius: 5px;
+        position: absolute;
+        right: 10px;
+        bottom: 20px;
+        margin-right: 10px;
+    }
+    .chat_context{
+        resize: none;
+    }
+    .chat_context::placeholder{
+        color: black;
+        font-weight: 500k;
+    }
+    .line{
+        width: 100%;
+        border-top: 1px;
+        border-color: #f4f5f7;
+        border-style: solid;
+    }
+</style>
+<body>
+<div class="big">
+    <!-- entry -->
+    <div class="chat_commento_left">
+        <div class="chat_top">
+            情绪识别
+        </div>
+        <!-- line -->
+{#        <div class="line"></div>#}
+        <!-- middle -->
+        <div class="chat_not_middle" id="chat_left_item">
+             <!-- 左边 -->
+        </div>
+        <!-- line -->
+
+    </div>
+    <div class="chat_commento">
+        <!-- top -->
+        <div class="chat_top" id="chatroom_and_name">
+            聊天室
+        </div>
+        <!-- line -->
+        <div class="line"></div>
+        <!-- middle -->
+        <div class="chat_middle" id="chat_middle_item">
+             <!-- 左边 -->
+
+        </div>
+        <!-- line -->
+        <div class="line"></div>
+        <!-- foot -->
+        <div class="chat_foot">
+            <!-- context -->
+            <textarea class="chat_context" id="chat_context_item" cols="30" rows="10" placeholder="请输入"></textarea>
+            <div class="chat_commit" id="button">发送</div>
+        </div>
+    </div>
+
+    <div class="chat_commento_right">
+        <div class="chat_top">
+            机器人
+        </div>
+        <!-- line -->
+{#        <div class="line"></div>#}
+        <!-- middle -->
+        <div class="chat_not_middle" id="chat_right_item">
+             <!-- 左边 -->
+        </div>
+        <!-- line -->
+
+    </div>
+</div>
+    <script>
+        var usernamecurrent = sessionStorage.getItem('username');
+        var chatroom = document.getElementById("chatroom_and_name");
+
+        var roomid = sessionStorage.getItem("roomid")
+        chatroom.innerHTML += roomid;
+        var socket = new WebSocket("ws://127.0.0.1:8000/room/" + roomid + "/");
+        socket.onmessage = function (message) {
+            let msg = JSON.parse(message.data);
+            console.log(msg);
+            var date = new Date();
+            var hour = date.getHours();
+            var mm = date.getMinutes();
+            var year = date.getFullYear();
+            var time = year + ':' + hour + ':' + mm;
+            var messagetype = msg["message_type"]
+            var str = msg["message"];
+            var username = msg["username"];
+            if (messagetype == "human") {
+                if(username == usernamecurrent){
+                    var ans = '<div class="chat_right_item_1 clearfix">' + username + '</div>' +
+                    '<div class="chat_right_item_2">' +
+                    '<div class="chat_right_time clearfix">' + time + '</div>' +
+                    '<div class="chat_right_content clearfix">' + str + '</div>'
+                    + '</div>';
+                }else{
+                    var ans = '<div class="chat_left_item_1 clearfix">' + username + '</div>' +
+                    '<div class="chat_left_item_2">' +
+                    '<div class="chat_left_time clearfix">' + time + '</div>' +
+                    '<div class="chat_left_content clearfix">' + str + '</div>'
+                    + '</div>';
+                }
+
+                var oLi = document.createElement("div");
+                oLi.setAttribute("class", "chat_right");
+                oLi.innerHTML = ans;
+                send_message.append(oLi);
+                message.value = "";
+            }
+            if(messagetype == "robot"){
+                var ans = time + "\n" + username + "<br>" + str + "<br>";
+                robot_message.innerHTML += ans;
+            }
+            if(messagetype == "emotion"){
+                var emotion = msg["emotion"];
+                console.log(emotion)
+                var ans = time + "\n" +  username + "\n" + str +"<br>" + emotion + "<br>";
+                emotion_message.innerHTML += ans;
+            }
+        }
+        // 成功发送
+        var robot_message = document.getElementById("chat_right_item");
+        var emotion_message = document.getElementById("chat_left_item");
+        var send_message=document.getElementById("chat_middle_item");
+        var domBtm=document.getElementById("button");
+        // 发送内容
+        var message=document.getElementById("chat_context_item");
+        domBtm.addEventListener("click",function(){
+            var username = sessionStorage.getItem('username')
+            var str = message.value;
+            if(str != '') {
+                socket.send(JSON.stringify({'message': str, 'username': username}));
+            }
+            message.value="";
+        });
+
+
+        // 监听文本输入框的键盘按下事件
+        message.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                // 如果按下的是Enter键，触发发送按钮的点击事件
+                domBtm.click();
+            }
+        });
+
+    </script>
+</body>
+</html>
+
+
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Title</title>#}
+{#</head>#}
+{#<body>#}
+{##}
+{#</body>#}
+{#</html>#}
+
+{#{% load static %}#}
+{#<html>#}
+{#    <head>#}
+{#        <meta name="viewport" content="width=device-width,initial-scale=1.0">#}
+{#        <title>聊天</title>#}
+{#        <link rel="stylesheet" type="text/css" href="/static/css/room.css">#}
+{#    </head>#}
+{##}
+{#    <body>#}
+{#        <div class="container">#}
+{#            <div class="leftSide">#}
+{#                <!--header-->#}
+{#                <div class="header">#}
+{#                    <div class="userimg">#}
+{#                        <img src="user.jpg" class="cover">#}
+{#                    </div>#}
+{#                    <ul class="nav_icons">#}
+{#                        <li><img src="消息.png"></li>#}
+{#                        <li><img src="消息.png"></li>#}
+{#                        <li><img src="更多.png"></li>#}
+{#                    </ul>#}
+{#                </div>#}
+{#                <!--search-->#}
+{#                <div class="search_chat">#}
+{#                    <div>#}
+{#                        <input type="text" placeholder="搜索...">#}
+{#                        <img src="搜索.png">#}
+{#                    </div>#}
+{#                </div>#}
+{#                <!--ChatList-->#}
+{#                <div class="chatlist">#}
+{#                    <div class="block active">#}
+{#                        <div class="imgbx">#}
+{#                            <img src="img1.jpg" class="cover">#}
+{#                        </div>#}
+{#                        <div class="details">#}
+{#                            <div class="listHead">#}
+{#                                <h4>开心果</h4>#}
+{#                                <p class="time">14:25</p>#}
+{#                            </div>#}
+{#                            <div class="message_p">#}
+{#                                <p>什么时候出去玩？</p>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#                <div class="chatlist">#}
+{#                    <div class="block unread">#}
+{#                        <div class="imgbx">#}
+{#                            <img src="img2.jpg" class="cover">#}
+{#                        </div>#}
+{#                        <div class="details">#}
+{#                            <div class="listHead">#}
+{#                                <h4>板栗</h4>#}
+{#                                <p class="time">15:10</p>#}
+{#                            </div>#}
+{#                            <div class="message_p">#}
+{#                                <p>天气太热了</p>#}
+{#                                <b>1</b>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#                <div class="chatlist">#}
+{#                    <div class="block">#}
+{#                        <div class="imgbx">#}
+{#                            <img src="img3.jpg" class="cover">#}
+{#                        </div>#}
+{#                        <div class="details">#}
+{#                            <div class="listHead">#}
+{#                                <h4>腰果</h4>#}
+{#                                <p class="time">11:15</p>#}
+{#                            </div>#}
+{#                            <div class="message_p">#}
+{#                                <p>有点饿</p>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{##}
+{#            </div>#}
+{##}
+{##}
+{#            <div class="rightSide">#}
+{#                <div class="header">#}
+{#                    <div class="imgText">#}
+{#                        <div class="userimg">#}
+{#                            <img src="img1.jpg" class="cover">#}
+{#                        </div>#}
+{#                        <h4>开心果<br><span>在线</span></h4>#}
+{#                    </div>#}
+{#                    <ul class="nav_icons">#}
+{#                        <li><img src="消息.png"></li>#}
+{#                        <li><img src="更多.png"></li>#}
+{#                    </ul>#}
+{#                </div>#}
+{#                <!--chatbox-->#}
+{#                <div class="chatBox">#}
+{#                    <div class="message my_message">#}
+{#                        <p>你在干嘛呢？<br><span>10:15</span> </p>#}
+{#                    </div>#}
+{#                    <div class="message frnd_message">#}
+{#                        <p>在写作业<br><span>10:15</span> </p>#}
+{#                    </div>#}
+{#                    <div class="message frnd_message">#}
+{#                        <p>天气太热了天气太热了天气太热了天气太热了天气太热了天气太热了天气太热了天气太热了天气太热了天气太热了天气太热了天气太热了<br><span>10:15 </span> </p>#}
+{#                    </div>#}
+{#                    <div class="message my_message">#}
+{#                        <p>对啊 也不下雨<br><span>10:15</span> </p>#}
+{#                    </div>#}
+{#                    <div class="message my_message">#}
+{#                        <p>希望以后凉快点<br><span>10:15</span> </p>#}
+{#                    </div>#}
+{#                </div>#}
+{##}
+{#                <!--chat input-->#}
+{#            <div class="chatbox_input">#}
+{#                <div class="instrument">#}
+{#                    <img src="表情.png" >#}
+{#                    <img src="语音.png">#}
+{#                </div>#}
+{#                <div>#}
+{#                    <input type="text">#}
+{#                </div>#}
+{##}
+{#            </div>#}
+{#            </div>#}
+{##}
+{#        </div>#}
+{#    </body>#}
+{#</html>#}
+
+{#            <div class="chat_left clearfix">#}
+{#                <div class="chat_left_item_1 ">天乐</div>#}
+{#                <div class="chat_left_item_2">#}
+{#                    <div class="chat_time">18:57</div>#}
+{#                    <div class="chat_left_content">#}
+{#                        今天吃点啥？#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+            <!--右边 -->
+{#            <div class="chat_right">#}
+{#                <div class="chat_right_item_1 ">热巴</div>#}
+{#                <div class="chat_right_item_2 ">#}
+{#                    <div class="chat_right_time">18:59</div>#}
+{#                    <div class="chat_right_content">#}
+{#                        最近八合里周年庆店，咱们去薅羊毛呀#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+            <!-- l_2 -->
+{#            <div class="chat_left clearfix">#}
+{#                <div class="chat_left_item_1 ">天乐</div>#}
+{#                <div class="chat_left_item_2">#}
+{#                    <div class="chat_time">18:57</div>#}
+{#                    <div class="chat_left_content">#}
+{#                        行收拾一下走吧，早点去排个号#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
